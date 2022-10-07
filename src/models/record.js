@@ -8,6 +8,7 @@ const RecordModel = DB_CONNECTION.define("record", {
   total: DataTypes.INTEGER,
   profit: DataTypes.INTEGER,
   transfer: DataTypes.TEXT,
+  date: DataTypes.DATE,
 });
 (async () => {
   await DB_CONNECTION.sync({ force: false });

@@ -1,18 +1,19 @@
-import RecordModel from '../models/record'
-import { Op } from 'sequelize'
+import RecordModel from "../models/record";
+import { Op } from "sequelize";
 
 class RecordController {
   async store(req, res) {
     try {
-      let { product, price, qty, total, profit, transfer } = req.body;
+      let { product, price, qty, date, profit, transfer } = req.body;
 
       const he_activity = await RecordModel.create({
         product,
         price,
         qty,
-        total,
+        total: price * qty,
         profit,
         transfer,
+        date,
       });
 
       return res.status(200).json({ data: he_activity });
@@ -81,4 +82,4 @@ class RecordController {
   }
 }
 
-export default new RecordController()
+export default new RecordController();
