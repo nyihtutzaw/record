@@ -1,5 +1,5 @@
 import RecordModel from "../models/record";
-import { Op } from "sequelize";
+import DB_CONNECTION from "../database";
 
 class RecordController {
   async store(req, res) {
@@ -24,7 +24,9 @@ class RecordController {
   }
   async index(req, res) {
     try {
-      const result = await RecordModel.findAll();
+      const result = await RecordModel.findAll({
+        order: [["date", "DESC"]],
+      });
       return res.status(200).json({ data: result });
     } catch (error) {
       console.log(error);
@@ -79,6 +81,14 @@ class RecordController {
       console.log(error);
       res.status(500).json({ message: "error" });
     }
+  }
+  async profilt(req, res) {
+    const result = await DB_CONNECTION.query(
+      "select sum(profit) as profit,MONTH(date) as month,YEAR(date) as year from records group by MONTH(date),YEAR(date) order by MONTH(date),YEAR(date)"
+    );
+    return res
+      .status(200)
+      .json({ message: "Successfully data", data: result[0] });
   }
 }
 

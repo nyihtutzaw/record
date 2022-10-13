@@ -1,9 +1,7 @@
 import HeActivityController from "../../controllers/recordController";
 import RecordController from "../../controllers/recordController";
 import { Validate_Request } from "../../controllers";
-import {
-  Record_Create_Validation,
-} from "../../validations";
+import { Record_Create_Validation } from "../../validations";
 
 export default (routes) => {
   routes.post(
@@ -13,6 +11,7 @@ export default (routes) => {
     RecordController.store
   );
   routes.get("/record", RecordController.index);
+  routes.get("/profit", RecordController.profilt);
   routes.get("/record/:id", RecordController.each);
   routes.delete("/record/:id", RecordController.delete);
   routes.put("/record/:id", RecordController.update);
